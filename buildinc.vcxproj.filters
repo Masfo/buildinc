@@ -22,6 +22,9 @@
     <ClInclude Include="src\buildnumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bin\test.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format">

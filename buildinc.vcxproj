@@ -157,6 +157,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bin\test.h" />
     <ClInclude Include="src\DisabledWarnings.h" />
     <ClInclude Include="src\buildnumber.h" />
   </ItemGroup>
