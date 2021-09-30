@@ -9,6 +9,47 @@
 #include <filesystem>
 #include <fstream>
 
+#include "effwords.h"
+
+
+std::vector<std::string_view> split(std::string_view input, std::string_view delims = "\n") noexcept
+{
+    if (input.empty() || delims.empty())
+        return {};
+
+    auto start = input.find_first_not_of(delims, 0);
+    auto stop  = input.find_first_of(delims, start);
+
+    std::vector<std::string_view> tokens;
+    tokens.reserve(input.size() / stop);   // assume first delim length as average length
+
+    while (std::string::npos != stop || std::string::npos != start)
+    {
+        tokens.emplace_back(input.substr(start, stop - start));
+        start = input.find_first_not_of(delims, stop);
+        stop  = input.find_first_of(delims, start);
+    }
+
+    tokens.shrink_to_fit();
+    return tokens;
+}
+
+std::string GenerateRandomPhrase() noexcept
+{
+    std::string_view sv{effwords, EFFWORDS_LEN};
+
+    auto tokens = split(sv);
+
+    static std::random_device             rd;
+    std::uniform_int_distribution<size_t> dist(0, tokens.size());
+
+    auto str = std::format("{}-{}-{}",
+                           split(tokens[dist(rd)], "\t")[1],
+                           split(tokens[dist(rd)], "\t")[1],
+                           split(tokens[dist(rd)], "\t")[1]);
+    return str;
+}
+
 
 bool find_variable(const std::string &variable, const std::string &to_find)
 {
@@ -67,7 +108,11 @@ std::string GetDateString()
     return buffer.str();
 }
 
-void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
+void WriteHeader(std::filesystem::path &HeaderFile,
+                 const std::string &    project_namespace,
+                 uint32_t               major,
+                 uint32_t               minor,
+                 uint32_t               build)
 {
     std::random_device                      rd;
     std::uniform_int_distribution<uint64_t> dist;
@@ -108,6 +153,8 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
     generated.append(std::format("\t\tconstexpr char version_string[] = \"{}.{}.{}\";\n", major, minor, build));
     generated.append(std::format("\t\tconstexpr char build_time_string[] = \"{}\";\n", date));
+    auto phrase = GenerateRandomPhrase();
+    generated.append(std::format("\t\tconstexpr char phrase[] = \"{}\";\n", phrase));
     generated.append("\n");
 
     generated.append("\t\t// Copy paste to import to your project\n");
@@ -122,6 +169,8 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
     generated.append(std::format("\t\t\tconstexpr auto version_string = {}::version_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
+    generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
+
 
     generated.append("\t\t*/\n");
 
@@ -171,7 +220,7 @@ int main(int argc, char **argv)
     uint32_t minor = 0;
     uint32_t build = 0;
 
-    if(!std::filesystem::exists(filename))
+    if (!std::filesystem::exists(filename))
         WriteHeader(filename, project_namespace, major, minor, build);
 
 
@@ -220,7 +269,7 @@ int main(int argc, char **argv)
         if (get_variable(line, "build = ", &temp))
         {
             count++;
-            build = temp+1;
+            build = temp + 1;
             continue;
         }
     }
@@ -228,7 +277,7 @@ int main(int argc, char **argv)
     std::cout << "buildinc "
               << " : '" << project_namespace << "' version is " << major << "." << minor << "." << build << "\n ";
 
-    
+
     header.close();
     WriteHeader(filename, project_namespace, major, minor, build);
 
