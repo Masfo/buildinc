@@ -10,6 +10,34 @@
 #include <fstream>
 
 
+bool find_variable(const std::string &variable, const std::string &to_find)
+{
+    return variable.find(to_find) != std::string::npos;
+}
+
+size_t variable_pos(const std::string &variable, const std::string &to_find)
+{
+    return variable.find(to_find);
+}
+
+
+bool get_variable(const std::string &from, const std::string &what, unsigned int *output)
+{
+
+    if (find_variable(from, what))
+    {
+        size_t found = variable_pos(from, "=");
+
+        size_t end = from.find(';');
+
+        std::string number = from.substr(found + 1, (end - found) - 1);
+        *output            = (uint32_t)std::stoi(number);
+        return true;
+    }
+
+    return false;
+}
+
 char to_up(const char in) noexcept
 {
     if (in >= 'a' && in <= 'z')
@@ -136,27 +164,73 @@ int main(int argc, char **argv)
 
     std::filesystem::path filename = std::filesystem::current_path() / commandline[0];
 
-    std::string id = commandline[1];
+    std::string project_namespace = commandline[1];
 
 
     uint32_t major = 0;
     uint32_t minor = 0;
     uint32_t build = 0;
 
-    std::ifstream header(filename);
-    if (header.is_open() == false)
-        WriteHeader(filename, id, major, minor, build);
+    if(!std::filesystem::exists(filename))
+        WriteHeader(filename, project_namespace, major, minor, build);
 
-    header.open(filename);
-    if (header.is_open() == false)
+
+    std::ifstream header(filename);
+    if (!header.is_open())
     {
         std::cout << "Cant open header file\n";
         return -3;
     }
 
+    int         count = 0;
+    std::string line;
+
+    while (header.good())
+    {
+        std::getline(header, line);
+
+        unsigned int temp;
+
+        if (count == 3)
+        {
+            header.close();
+            break;
+        }
+
+        if (line.empty() || line.size() <= 25 || line.size() > 40 || line[0] == '/')
+            continue;
 
 
+        if (get_variable(line, "major = ", &temp))
+        {
+            count++;
+            major = temp;
+            continue;
+        }
+
+
+        if (get_variable(line, "minor = ", &temp))
+        {
+            count++;
+            minor = temp;
+            continue;
+        }
+
+
+        if (get_variable(line, "build = ", &temp))
+        {
+            count++;
+            build = temp+1;
+            continue;
+        }
+    }
+
+    std::cout << "buildinc "
+              << " : '" << project_namespace << "' version is " << major << "." << minor << "." << build << "\n ";
+
+    
     header.close();
+    WriteHeader(filename, project_namespace, major, minor, build);
 
 
     return 0;
