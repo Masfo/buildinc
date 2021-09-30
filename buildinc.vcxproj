@@ -48,6 +48,7 @@
     <TargetName>$(ProjectName)64d</TargetName>
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bin\test.h" />
+    <ClInclude Include="effwords.h" />
     <ClInclude Include="src\DisabledWarnings.h" />
     <ClInclude Include="src\buildnumber.h" />
   </ItemGroup>
