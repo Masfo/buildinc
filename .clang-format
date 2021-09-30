@@ -3,8 +3,8 @@
 Language: Cpp
 BasedOnStyle: LLVM
 ColumnLimit: 140
-IndentWidth: 2
-TabWidth: 2
+IndentWidth: 4
+TabWidth: 4
 AccessModifierOffset: -4
 MaxEmptyLinesToKeep: 2
 SpacesBeforeTrailingComments: 3
