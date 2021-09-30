@@ -1,170 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup Label="ProjectConfigurations">
-	<ProjectConfiguration Include="Debug|x64">
-		<Configuration>Debug</Configuration>
-		<Platform>x64</Platform>
-	</ProjectConfiguration>
-	<ProjectConfiguration Include="Release|x64">
-		<Configuration>Release</Configuration>
-		<Platform>x64</Platform>
-	</ProjectConfiguration>
-	</ItemGroup>
-
-	<PropertyGroup Label="Globals">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-	<ProjectGuid>{05E5E07D-B766-4755-BD71-EE7F1317E7E7}</ProjectGuid>
-	<Keyword>Win32Proj</Keyword>
-	<RootNamespace>$safeprojectname$</RootNamespace>
-	<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-	<ConfigurationType>Application</ConfigurationType>
-	<UseDebugLibraries>true</UseDebugLibraries>
-	<PlatformToolset>v142</PlatformToolset>
-	<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-	<ConfigurationType>Application</ConfigurationType>
-	<UseDebugLibraries>false</UseDebugLibraries>
-	<PlatformToolset>v142</PlatformToolset>
-	<WholeProgramOptimization>true</WholeProgramOptimization>
-	<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-	<ImportGroup Label="ExtensionSettings">
-	</ImportGroup>
-	<ImportGroup Label="Shared">
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros" />
-		<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-			<LinkIncremental>true</LinkIncremental>
-			<TargetName>$(ProjectName)64d</TargetName>
-			<OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
-			<IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
-		</PropertyGroup>
-		<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-			<LinkIncremental>false</LinkIncremental>
-			<OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
-			<IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
-			<TargetName>$(ProjectName)64</TargetName>
-		</PropertyGroup>
-
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-	<ClCompile>
-		<PrecompiledHeader>NotUsing</PrecompiledHeader>
-		<WarningLevel>EnableAllWarnings</WarningLevel>
-		<Optimization>Disabled</Optimization>
-		<PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-        <ConformanceMode>true</ConformanceMode>
-		<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-		<FloatingPointModel>Precise</FloatingPointModel>
-		<PrecompiledHeaderFile />
-		<PrecompiledHeaderOutputFile />
-		<AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+    <ProjectGuid>{05E5E07D-B766-4755-BD71-EE7F1317E7E7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>$safeprojectname$</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)64d</TargetName>
+    <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
+    <TargetName>$(ProjectName)64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-        <SupportJustMyCode>true</SupportJustMyCode>
-        <UseStandardPreprocessor>true</UseStandardPreprocessor>
-        <ForcedIncludeFiles>DisabledWarnings.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-        <DiagnosticsFormat>Caret</DiagnosticsFormat>
-        <MultiProcessorCompilation>true</MultiProcessorCompilation>
-        <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-<AssemblerListingLocation>$(ProjectDir)temp\asm\$(ProjectName).asm</AssemblerListingLocation>
-	</ClCompile>
-	<Link>
-		<SubSystem>Console</SubSystem>
-		<GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
-		<AdditionalDependencies>kernel32.lib;user32.lib;Advapi32.lib;libcpmtd.lib;libcmtd.lib;libconcrtd.lib;libvcruntimed.lib;libucrtd.lib</AdditionalDependencies>
-		<IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-		<ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
-		<ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
-	</Link>
-	<PostBuildEvent>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <ForcedIncludeFiles>DisabledWarnings.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AssemblerListingLocation>$(ProjectDir)temp\asm\$(ProjectName).asm</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;Advapi32.lib;libcpmtd.lib;libcmtd.lib;libconcrtd.lib;libvcruntimed.lib;libucrtd.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+    </Link>
+    <PostBuildEvent>
       <Command>
 @if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
 @forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
 </Command>
-	</PostBuildEvent>
-<Manifest>
+    </PostBuildEvent>
+    <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest.txt</AdditionalManifestFiles>
     </Manifest>
-   <PreBuildEvent>
-      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(ProjectName)</Command>
+    <PreBuildEvent>
+      <Command>
+      </Command>
     </PreBuildEvent>
-	</ItemDefinitionGroup>
-
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-	<ClCompile>
-		<WarningLevel>EnableAllWarnings</WarningLevel>
-		<PrecompiledHeader>NotUsing</PrecompiledHeader>
-		<Optimization>MaxSpeed</Optimization>
-		<FunctionLevelLinking>false</FunctionLevelLinking>
-		<IntrinsicFunctions>true</IntrinsicFunctions>
-		<PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		<DebugInformationFormat>None</DebugInformationFormat>
-		<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-		<BufferSecurityCheck>false</BufferSecurityCheck>
-		<FloatingPointModel>Precise</FloatingPointModel>
-		<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-		<PrecompiledHeaderFile />
-		<PrecompiledHeaderOutputFile />
-		<AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-        <DisableLanguageExtensions>false</DisableLanguageExtensions>
-        <WholeProgramOptimization>true</WholeProgramOptimization>
-        <UseStandardPreprocessor>true</UseStandardPreprocessor>
-        <DiagnosticsFormat>Caret</DiagnosticsFormat>
-    <ForcedIncludeFiles>DisabledWarnings.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-        <MultiProcessorCompilation>true</MultiProcessorCompilation>
-<AssemblerListingLocation>$(ProjectDir)temp\asm\$(ProjectName).asm</AssemblerListingLocation>
-	</ClCompile>
-	<Link>
-		<SubSystem>Console</SubSystem>
-		<EnableCOMDATFolding>true</EnableCOMDATFolding>
-		<OptimizeReferences>true</OptimizeReferences>
-		<GenerateDebugInformation>No</GenerateDebugInformation>
-		<ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
-		<SetChecksum>true</SetChecksum>
-		<IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-		<AdditionalDependencies>kernel32.lib;user32.lib;Advapi32.lib;libcpmt.lib;libcmt.lib;libconcrt.lib;libvcruntime.lib;libucrt.lib</AdditionalDependencies>
-		<ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
-		<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-	</Link>
-	<PostBuildEvent>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <ForcedIncludeFiles>DisabledWarnings.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AssemblerListingLocation>$(ProjectDir)temp\asm\$(ProjectName).asm</AssemblerListingLocation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SetChecksum>true</SetChecksum>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>kernel32.lib;user32.lib;Advapi32.lib;libcpmt.lib;libcmt.lib;libconcrt.lib;libvcruntime.lib;libucrt.lib</AdditionalDependencies>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+    <PostBuildEvent>
       <Command>
 @if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
 @forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
 </Command>
-	</PostBuildEvent>
-<Manifest>
+    </PostBuildEvent>
+    <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest.txt</AdditionalManifestFiles>
     </Manifest>
-   <PreBuildEvent>
+    <PreBuildEvent>
       <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(ProjectName)</Command>
     </PreBuildEvent>
-	</ItemDefinitionGroup>
-	<ItemGroup>
-		<ClCompile Include="src\main.cpp" />
-	</ItemGroup>
-    <ItemGroup>
-        <ClInclude Include="src\DisabledWarnings.h" />
-        <ClInclude Include="src\buildnumber.h" />
-     </ItemGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-	<ImportGroup Label="ExtensionTargets">
-	</ImportGroup>
-</Project>																																							 
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DisabledWarnings.h" />
+    <ClInclude Include="src\buildnumber.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".clang-format" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
