@@ -49,14 +49,14 @@
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>BuildInc</TargetName>
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
