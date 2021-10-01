@@ -207,7 +207,7 @@ void WriteHeader(std::filesystem::path &HeaderFile,
 int main(int argc, char **argv)
 {
 
-    std::cout << "BuildInc v" << buildincVersion::version_string << "\n\tbuildinc <output file> <projectname>\n";
+    std::cout << "BuildInc v" << buildincVersion::version_string << "\n\n";
 
 
     std::vector<std::string> commandline(argv + 1, argv + argc);
