@@ -3,3 +3,5 @@
 v16
 buildincd
 buildinc
+/bin/*.zip
+bin

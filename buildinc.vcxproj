@@ -45,17 +45,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>$(ProjectName)64d</TargetName>
+    <TargetName>BuildInc</TargetName>
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
-    <TargetName>buildinc</TargetName>
-    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <TargetName>BuildInc</TargetName>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -90,17 +91,16 @@
       <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
     </Link>
     <PostBuildEvent>
-      <Command>
-@if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+      <Command>@if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
-@forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
-</Command>
+@copy /Y /B $(SolutionDir)bin\$(TargetName)$(TargetExt) $(SolutionDir)$(TargetName)$(TargetExt)
+@forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""</Command>
     </PostBuildEvent>
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest.txt</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(ProjectName)</Command>
+      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(TargetName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,9 +142,9 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command>
-@if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+      <Command>@if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
+@copy /Y /B $(SolutionDir)bin\$(TargetName)$(TargetExt) $(SolutionDir)$(TargetName)$(TargetExt)
 @forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
 </Command>
     </PostBuildEvent>
@@ -152,7 +152,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest.txt</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(ProjectName)</Command>
+      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(TargetName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
