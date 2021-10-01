@@ -54,7 +54,9 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)Temp\bin\$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
-    <TargetName>$(ProjectName)64</TargetName>
+    <TargetName>buildinc</TargetName>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -98,8 +100,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest.txt</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(ProjectDir)buildinc.exe src\buildnumber.h $(ProjectName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
