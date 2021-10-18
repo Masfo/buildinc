@@ -5,12 +5,15 @@
 #include <chrono>
 #include <sstream>
 #include <random>
+#include <optional>
 #include <iostream>
 #include <filesystem>
 #include <fstream>
 
 #include "effwords.h"
 #include "buildnumber.h"
+
+using namespace std::string_view_literals;
 
 namespace global
 {
@@ -50,41 +53,40 @@ std::string GenerateRandomPhrase() noexcept
     static std::random_device             rd;
     std::uniform_int_distribution<size_t> dist(0, global::eff_wordlist.size());
 
+
     auto phrase1 = global::eff_wordlist[dist(rd)];
     auto phrase2 = global::eff_wordlist[dist(rd)];
     auto phrase3 = global::eff_wordlist[dist(rd)];
+
 
     auto str = std::format("{}-{}-{}", phrase1, phrase2, phrase3);
     return str;
 }
 
 
-bool find_variable(const std::string &variable, const std::string &to_find)
+bool find_variable(std::string_view variable, std::string_view to_find)
 {
     return variable.find(to_find) != std::string::npos;
 }
 
-size_t variable_pos(const std::string &variable, const std::string &to_find)
+size_t variable_pos(std::string_view variable, std::string_view to_find)
 {
     return variable.find(to_find);
 }
 
 
-bool get_variable(const std::string &from, const std::string &what, unsigned int *output)
+std::optional<unsigned int> get_variable(std::string_view from, std::string_view what) noexcept
 {
-
     if (find_variable(from, what))
     {
-        size_t found = variable_pos(from, "=");
-
+        size_t found = variable_pos(from, "="sv);
         size_t end = from.find(';');
 
-        std::string number = from.substr(found + 1, (end - found) - 1);
-        *output            = (uint32_t)std::stoi(number);
-        return true;
+        auto number = from.substr(found + 1, (end - found) - 1);
+        return {(uint32_t)std::stoi(number.data())};
     }
 
-    return false;
+    return std::nullopt;
 }
 
 
@@ -216,7 +218,7 @@ void WriteHeader(std::filesystem::path &HeaderFile,
 int main(int argc, char **argv)
 {
 
-    std::cout << "BuildInc v" << BuildIncVersion::version_string << "\n\n";
+    std::cout << "BuildInc " << BuildIncVersion::version_string << "\n\n";
 
 
     std::vector<std::string> commandline(argv + 1, argv + argc);
@@ -266,7 +268,6 @@ int main(int argc, char **argv)
     {
         std::getline(header, line);
 
-        unsigned int temp;
 
         if (count == 3)
         {
@@ -278,26 +279,26 @@ int main(int argc, char **argv)
             continue;
 
 
-        if (get_variable(line, "major = ", &temp))
+        if (auto temp = get_variable(line, "major = "); temp.has_value())
         {
             count++;
-            major = temp;
+            major = temp.value();
             continue;
         }
 
 
-        if (get_variable(line, "minor = ", &temp))
+        if (auto temp = get_variable(line, "minor = "); temp.has_value())
         {
             count++;
-            minor = temp;
+            minor = temp.value();
             continue;
         }
 
 
-        if (get_variable(line, "build = ", &temp))
+        if (auto temp = get_variable(line, "build = "); temp.has_value())
         {
             count++;
-            build = temp + 1;
+            build = temp.value() + 1;
             continue;
         }
     }
