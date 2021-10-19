@@ -12,7 +12,7 @@ jobs:
           # The file where the content to replace is.
           file: buildinc.vcxproj
           # The value that will be replaced.
-          replaced:  <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+          replaced: "<PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>"
           # The value that the original value is replaced with.
-          value:  <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+          value: "<PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>"
           
