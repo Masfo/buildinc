@@ -11,3 +11,4 @@ jobs:
           find: "<PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>"
           replace: "<PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>"
           regex: false
+          include: "buildinc.vcxproj"
