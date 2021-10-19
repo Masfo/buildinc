@@ -50,6 +50,7 @@
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -58,6 +59,7 @@
     <TargetName>BuildInc</TargetName>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -146,6 +148,7 @@
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
 
 @copy /Y /B $(SolutionDir)bin\$(TargetName)$(TargetExt) $(SolutionDir)$(TargetName)$(TargetExt)
+@copy /Y /B $(SolutionDir)bin\$(TargetName)$(TargetExt) E:\tools\global_commands\$(TargetName)$(TargetExt)
 
 @forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
 </Command>
