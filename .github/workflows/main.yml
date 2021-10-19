@@ -1,0 +1,13 @@
+name: Change post-build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "<PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>"
+          replace: "<PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>"
+          regex: false
