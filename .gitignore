@@ -6,3 +6,4 @@ buildinc
 /bin/*.zip
 bin
 *.py
+*.cmd

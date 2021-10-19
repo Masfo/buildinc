@@ -50,7 +50,7 @@
     <IntDir>$(ProjectDir)Temp\$(Configuration)\$(Platform)\$(ProjectName)d\</IntDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -59,7 +59,7 @@
     <TargetName>BuildInc</TargetName>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
