@@ -5,3 +5,4 @@ buildincd
 buildinc
 /bin/*.zip
 bin
+*.py
