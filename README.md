@@ -1,5 +1,5 @@
-# buildinc
-Updates build versions automatically.
+# buildinc (Visual Studio 2022)
+Updates build versions automatically. 
 
 
 Usage example: *buildinc output.h Example*
