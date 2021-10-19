@@ -144,7 +144,9 @@
     <PostBuildEvent>
       <Command>@if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
 @copy /Y /B $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)bin\$(TargetName)$(TargetExt)
+
 @copy /Y /B $(SolutionDir)bin\$(TargetName)$(TargetExt) $(SolutionDir)$(TargetName)$(TargetExt)
+
 @forfiles  /p  "$(SolutionDir)bin" /c "cmd /c echo @file @fsize bytes | findstr "$(TargetName)$(TargetExt)""
 </Command>
     </PostBuildEvent>
