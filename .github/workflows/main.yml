@@ -4,15 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Replace Value
-      # You may pin to the exact commit or the version.
-      # uses: visiosto/replace-value@1e74d6b57e29503b4789c72b9053480824e12a9b
-        uses: visiosto/replace-value@v1.0.0
-        with:
-          # The file where the content to replace is.
-          file: 'buildinc.vcxproj'
-          # The value that will be replaced.
-          replaced: '<PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>'
-          # The value that the original value is replaced with.
-          value: '<PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>'
-          
+    - name: Find and Replace Action
+      uses: nguyenvanuyn96/str-find-and-replace-action@0.0.5
+      with:
+        include: buildinc.vcxproj # optional, default is .*
+        find: <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+        replace: <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
