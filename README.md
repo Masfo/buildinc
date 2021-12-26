@@ -12,5 +12,5 @@ Generates C++ header file containing version and build numbers. Also included
 Example output: https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
 
 
-Put in your project pre-build event:
+Put in your project pre-build event (e.g.):
 ![project_build](https://user-images.githubusercontent.com/11275865/147406542-aaa38e95-8743-4fa8-a865-62671f308b50.png)
