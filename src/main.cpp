@@ -215,7 +215,7 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\t\tconstexpr auto version_string = {}::version_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
-    generated.append(std::format("\t\t\tconstexpr auto phrase = {}::calver;\n", modns));
+    generated.append(std::format("\t\t\tconstexpr auto calver = {}::calver;\n", modns));
 
 
 
