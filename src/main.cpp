@@ -17,7 +17,7 @@ using namespace std::string_view_literals;
 
 namespace global
 {
-    std::vector<std::string> eff_wordlist;
+    static std::vector<std::string> eff_wordlist;
 }
 
 std::vector<std::string> split(const std::string_view str, const std::string_view delims = "\n") noexcept
@@ -50,14 +50,13 @@ std::string GenerateRandomPhrase() noexcept
             global::eff_wordlist.emplace_back(split(words, "\t").at(1));
     }
 
-    static std::random_device             rd;
-    std::uniform_int_distribution<size_t> dist(0, global::eff_wordlist.size());
+    static std::random_device                   rd;
+    const std::uniform_int_distribution<size_t> dist(0, global::eff_wordlist.size());
 
 
-    auto phrase1 = global::eff_wordlist[dist(rd)];
-    auto phrase2 = global::eff_wordlist[dist(rd)];
-    auto phrase3 = global::eff_wordlist[dist(rd)];
-
+    auto &phrase1 = global::eff_wordlist[dist(rd)];
+    auto &phrase2 = global::eff_wordlist[dist(rd)];
+    auto &phrase3 = global::eff_wordlist[dist(rd)];
 
     auto str = std::format("{}-{}-{}", phrase1, phrase2, phrase3);
     return str;
@@ -82,7 +81,7 @@ std::optional<unsigned int> get_variable(std::string_view from, std::string_view
         size_t found = variable_pos(from, "="sv);
         size_t end   = from.find(';');
 
-        auto number = from.substr(found + 1, (end - found) - 1);
+        const std::string_view number = from.substr(found + 1, (end - found) - 1);
         return {(uint32_t)std::stoi(number.data())};
     }
 
@@ -98,7 +97,7 @@ std::pair<uint32_t, uint32_t> Multiplier(uint32_t buildnum)
     while (width--)
         mul *= 10;
 
-    return {mul, mul * 10};
+    return std::make_pair(mul, mul * 10);
 }
 
 char to_up(const char in) noexcept
@@ -130,14 +129,27 @@ std::string GetDateString()
     return buffer.str();
 }
 
+std::string cal_version_string(uint32_t build)
+{
+    std::stringstream buffer;
+    auto              now       = std::chrono::system_clock::now();
+    auto              in_time_t = std::chrono::system_clock::to_time_t(now);
+
+    tm nt;
+    localtime_s(&nt, &in_time_t);
+
+    buffer << std::put_time(&nt, "%Y.%V");
+    return std::format("{}.{}", buffer.str(), build);
+}
+
 void WriteHeader(std::filesystem::path &HeaderFile,
                  const std::string &    project_namespace,
                  uint32_t               major,
                  uint32_t               minor,
                  uint32_t               build)
 {
-    std::random_device                      rd;
-    std::uniform_int_distribution<uint64_t> dist;
+    std::random_device                            rd;
+    const std::uniform_int_distribution<uint64_t> dist;
 
     auto date = GetDateString();
 
@@ -171,7 +183,7 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\tconstexpr uint32_t build = {};\n", build));
     generated.append("\t\t\n");
 
-    auto [multi1, multi2] = Multiplier(build);
+    const auto [multi1, multi2] = Multiplier(build);
     generated.append(
         std::format("\t\tconstexpr uint32_t version = major * {} + minor * {} + build;\n", multi2, multi1));
     generated.append(std::format("\t\tconstexpr uint64_t random_seed = {:#0x};\n", dist(rd)));
@@ -183,6 +195,11 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\tconstexpr char build_time_string[] = \"{}\";\n", date));
     auto phrase = GenerateRandomPhrase();
     generated.append(std::format("\t\tconstexpr char phrase[] = \"{}\";\n", phrase));
+    // Cal-ver
+    generated.append(std::format("\t\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
+
+
+
     generated.append("\n");
 
     generated.append("\t\t// Copy paste to import to your project\n");
@@ -198,6 +215,9 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\t\tconstexpr auto version_string = {}::version_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
+    generated.append(std::format("\t\t\tconstexpr auto phrase = {}::calver;\n", modns));
+
+
 
 
     generated.append("\t\t*/\n");
@@ -217,10 +237,9 @@ void WriteHeader(std::filesystem::path &HeaderFile,
 }
 
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-
-    std::cout << "BuildInc " << BuildIncVersion::version_string << "\n\n";
+    std::cout << std::format("BuildInc {}\n\n", BuildIncVersion::version_string);
 
 
     std::vector<std::string> commandline(argv + 1, argv + argc);
@@ -305,9 +324,7 @@ int main(int argc, char **argv)
         }
     }
 
-    std::cout << "buildinc "
-              << " : '" << project_namespace << "' version is " << major << "." << minor << "." << build << "\n ";
-
+    std::cout << std::format("buildinc : '{}' version is {}.{}.{}\n", project_namespace, major, minor, build);
 
     header.close();
     WriteHeader(filename, project_namespace, major, minor, build);
