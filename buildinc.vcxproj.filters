@@ -22,10 +22,10 @@
     <ClInclude Include="src\buildnumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bin\test.h">
+    <ClInclude Include="effwords.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="effwords.h">
+    <ClInclude Include="bin\test.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

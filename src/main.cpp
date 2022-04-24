@@ -116,34 +116,21 @@ static std::string ToUpper(const std::string &s)
     return ret;
 }
 
+
 std::string GetDateString()
 {
-    std::stringstream buffer;
-    auto              now       = std::chrono::system_clock::now();
-    auto              in_time_t = std::chrono::system_clock::to_time_t(now);
-
-    tm nt;
-    localtime_s(&nt, &in_time_t);
-
-    buffer << std::put_time(&nt, "%F %T");
-    return buffer.str();
+    auto const time   = std::chrono::current_zone()->to_local(std::chrono::system_clock::now());
+    return std::format("{:%Y-%m-%d %X}", time);
 }
 
 std::string cal_version_string(uint32_t build)
 {
-    std::stringstream buffer;
-    auto              now       = std::chrono::system_clock::now();
-    auto              in_time_t = std::chrono::system_clock::to_time_t(now);
-
-    tm nt;
-    localtime_s(&nt, &in_time_t);
-
-    buffer << std::put_time(&nt, "%Y.%V");
-    return std::format("{}.{}", buffer.str(), build);
+    auto const time = std::chrono::current_zone()->to_local(std::chrono::system_clock::now());
+    return std::format("{:%Y.%V}.{}", time, build);
 }
 
 void WriteHeader(std::filesystem::path &HeaderFile,
-                 const std::string &    project_namespace,
+                 const std::string     &project_namespace,
                  uint32_t               major,
                  uint32_t               minor,
                  uint32_t               build)
@@ -199,7 +186,6 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
 
 
-
     generated.append("\n");
 
     generated.append("\t\t// Copy paste to import to your project\n");
@@ -216,8 +202,6 @@ void WriteHeader(std::filesystem::path &HeaderFile,
     generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto calver = {}::calver;\n", modns));
-
-
 
 
     generated.append("\t\t*/\n");
