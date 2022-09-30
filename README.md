@@ -12,5 +12,10 @@ Generates C++ header file containing version and build numbers. Also included
 Example output: https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
 
 
-Put in your project pre-build event (e.g.):
-![project_build](https://user-images.githubusercontent.com/11275865/147406542-aaa38e95-8743-4fa8-a865-62671f308b50.png)
+Example: add custom command to your CMake script to update per build.
+```cpp
+    add_custom_command(TARGET <your target> POST_BUILD
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/buildinc.exe buildnumber.h BuildInc -q
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+        )
+```
