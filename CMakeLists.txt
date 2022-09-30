@@ -54,8 +54,7 @@ if (${CMAKE_BUILD_TYPE} MATCHES "Release")
         COMMENT Run BuildInc and copy to tools
         COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/buildinc.exe buildnumber.h BuildInc -q
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-        USES_TERMINAL
-    )
+        )
 
 
     if(GLOBAL_TOOL)
