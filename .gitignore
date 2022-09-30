@@ -7,3 +7,11 @@ buildinc
 bin
 *.py
 *.cmd
+/.vs
+/out/build
+/.github/ISSUE_TEMPLATE/bug_report.md
+/.github/ISSUE_TEMPLATE/feature_request.md
+/.github/workflows/main.yml
+/.github/ISSUE_TEMPLATE/bug_report.md
+/.github/ISSUE_TEMPLATE/feature_request.md
+/.github/workflows/main.yml
