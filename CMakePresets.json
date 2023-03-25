@@ -3,13 +3,13 @@
     "buildPresets": [
         {
             "name": "debug",
-            "displayName": "default",
+            "displayName": "x64 Debug",
             "hidden": false,
             "configurePreset": "x64-Debug"
         },
         {
             "name": "release",
-            "displayName": "Release",
+            "displayName": "x64 Release",
             "hidden": false,
             "configurePreset": "x64-Release"
         }
