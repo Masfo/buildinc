@@ -129,6 +129,24 @@ std::string cal_version_string(uint32_t build)
     return std::format("{:%Y.%V}.{}", time, build);
 }
 
+std::string uuid_string() noexcept
+{
+    static std::random_device                      rd;
+    static std::uniform_int_distribution<uint64_t> dist(0);
+
+    uint64_t ab = (dist(rd) & 0xFFFFFFFFFFFF0FFFULL) | 0x0000000000004000ULL;
+    uint64_t cd = (dist(rd) & 0x3FFFFFFFFFFFFFFFULL) | 0x8000000000000000ULL;
+
+
+    return std::format("{:08X}-{:04X}-{:04X}-{:04X}-{:012X}",
+                       (ab >> 32) & 0xFFFF'FFFF,
+                       (ab >> 16) & 0xFFFF,
+                       (ab >> 00) & 0xFFFF,
+                       (cd >> 48) & 0xFFFF,
+                       (cd >> 00) & 0xFFFF'FFFF'FFFF);
+}
+
+
 void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
 {
     std::random_device                      rd;
@@ -178,6 +196,8 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
     generated.append(std::format("\t\tconstexpr char phrase[] = \"{}\";\n", phrase));
     // Cal-ver
     generated.append(std::format("\t\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
+    // uuid
+    generated.append(std::format("\t\tconstexpr char uuid[] = \"{}\";\n", uuid_string()));
 
 
     generated.append("\n");
@@ -196,6 +216,7 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
     generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
     generated.append(std::format("\t\t\tconstexpr auto calver = {}::calver;\n", modns));
+    generated.append(std::format("\t\t\tconstexpr auto uuid = {}::uuid;\n", modns));
 
 
     generated.append("\t\t*/\n");
