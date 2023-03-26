@@ -146,7 +146,7 @@ function(setup_piku_executable_msvc target outputname)
     endif() # MSVC
 
     find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
-
+    if(BUILDINC_TOOL)
     add_custom_command(TARGET ${target}
                        PRE_BUILD
                        COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q 
@@ -154,5 +154,6 @@ function(setup_piku_executable_msvc target outputname)
                        COMMENT "Increase build number"
 
     )
+    endif()
 
 endfunction()
