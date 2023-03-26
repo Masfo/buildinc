@@ -14,7 +14,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(SetupMSVC)
-include(Buildinc)
 
 
 set(PROJECT_VERSION 1.0.0)
@@ -30,7 +29,6 @@ project(buildinc VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 add_executable (buildinc)
 setup_piku_executable_msvc(buildinc "")
 target_include_directories(buildinc PRIVATE ${CMAKE_CURRENT_LIST_DIR}/src)
-run_buildinc(buildinc)
 
 
 add_subdirectory(src)
