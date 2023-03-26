@@ -1,5 +1,5 @@
 #
-cmake_minimum_required (VERSION 3.23)
+cmake_minimum_required (VERSION 3.25)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -14,11 +14,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(SetupMSVC)
+include(Buildinc)
 
 
 set(PROJECT_VERSION 1.0.0)
 
-message(STATUS "Path: " ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 
 
 project(buildinc VERSION ${PROJECT_VERSION} LANGUAGES CXX)
@@ -29,6 +30,7 @@ project(buildinc VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 add_executable (buildinc)
 setup_piku_executable_msvc(buildinc "")
 target_include_directories(buildinc PRIVATE ${CMAKE_CURRENT_LIST_DIR}/src)
+run_buildinc(buildinc)
 
 
 add_subdirectory(src)
@@ -45,29 +47,3 @@ target_compile_options(buildinc PRIVATE
 )
 
 
-
-
-if (${CMAKE_BUILD_TYPE} MATCHES "Release")
-
-    add_custom_command(TARGET buildinc
-        POST_BUILD
-        COMMENT Run BuildInc and copy to tools
-        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/buildinc.exe buildnumber.h BuildInc -q
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-        )
-
-
-    if(GLOBAL_TOOL)
-        if(EXISTS ${GLOBAL_TOOL})
-    
-            add_custom_command(TARGET buildinc
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/bin/buildinc.exe" "${GLOBAL_TOOL}/buildinc.exe"
-                USES_TERMINAL
-            )
-        endif()
-    endif()
-
-
-
-endif()
