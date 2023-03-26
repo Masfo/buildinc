@@ -30,6 +30,7 @@ project(buildinc VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 add_executable (buildinc)
 setup_piku_executable_msvc(buildinc "")
 target_include_directories(buildinc PRIVATE ${CMAKE_CURRENT_LIST_DIR}/src)
+run_buildinc(buildinc)
 
 
 add_subdirectory(src)
@@ -45,5 +46,4 @@ target_compile_options(buildinc PRIVATE
     /wd5045 # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 )
 
-run_buildinc(buildinc)
 
