@@ -21,7 +21,6 @@ function(setup_piku_executable_msvc target outputname)
     endif()
 
     get_target_property(str ${target} OUTPUT_NAME)
-    message(STATUS "Output exe: " ${str})
 
 
     set_target_properties("${target}" PROPERTIES DEBUG_POSTFIX "d")
@@ -34,7 +33,6 @@ function(setup_piku_executable_msvc target outputname)
                           RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin
     )
 
-    message(STATUS "bin: " ${CMAKE_SOURCE_DIR}/bin)
 
     if(MSVC)
         target_compile_definitions("${target}" PRIVATE -DUNICODE)

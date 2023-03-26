@@ -19,7 +19,7 @@ include(Buildinc)
 
 set(PROJECT_VERSION 1.0.0)
 
-message(STATUS "Path: " ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 
 
 project(buildinc VERSION ${PROJECT_VERSION} LANGUAGES CXX)
@@ -44,7 +44,6 @@ target_compile_options(buildinc PRIVATE
     /wd4711 # function selected for automatic inline expansion
     /wd5045 # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 )
-
 
 run_buildinc(buildinc)
 

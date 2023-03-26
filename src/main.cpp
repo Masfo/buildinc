@@ -219,7 +219,6 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
     generated.append("\t\t*/\n");
 
-
     generated.append("}\n");
 
     generated.append(std::format("#endif // {}_BUILDNUMBER_HEADER_H\n", ToUpper(modns)));
@@ -249,6 +248,7 @@ int main(int argc, char *argv[])
     {
         if (!quiet)
             std::cout << "usage: buildinc <output file> <projectname>\n";
+
         return 0;
     }
 
