@@ -14,6 +14,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(SetupMSVC)
+include(Buildinc)
 
 
 set(PROJECT_VERSION 1.0.0)
@@ -45,29 +46,5 @@ target_compile_options(buildinc PRIVATE
 )
 
 
+run_buildinc(buildinc)
 
-
-if (${CMAKE_BUILD_TYPE} MATCHES "Release")
-
-    add_custom_command(TARGET buildinc
-        POST_BUILD
-        COMMENT Run BuildInc and copy to tools
-        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/buildinc.exe buildnumber.h BuildInc -q
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-        )
-
-
-    if(GLOBAL_TOOL)
-        if(EXISTS ${GLOBAL_TOOL})
-    
-            add_custom_command(TARGET buildinc
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/bin/buildinc.exe" "${GLOBAL_TOOL}/buildinc.exe"
-                USES_TERMINAL
-            )
-        endif()
-    endif()
-
-
-
-endif()
