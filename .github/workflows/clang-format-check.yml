@@ -11,3 +11,4 @@ jobs:
       with:
         clang-format-version: '16'
         check-path: 'src'
+        exclude: '(effwords)'
