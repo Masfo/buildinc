@@ -24,12 +24,8 @@ SeparateDefinitionBlocks: Always
 SpaceAfterTemplateKeyword: false
 
 IntegerLiteralSeparator:
-  Binary: 4
-  Hex: 4
-
-
-BinPackArguments: false
-BinPackParameters: true
+    Binary: 4
+    Hex: 0
 
 IncludeCategories:
   - Regex: '^<windows.h>'
