@@ -24,3 +24,4 @@ Example: add custom command to your CMake script to update per build.
 
         )
 ```
+![Clang-Format check](https://github.com/Masfo/buildinc/actions/workflows/clang-format-check.yml/badge.svg)
