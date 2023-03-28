@@ -14,14 +14,13 @@ Example output: https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
 
 Example: add custom command to your CMake script to update per build.
 ```cpp
-        find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
+find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
 
-        add_custom_command(TARGET <your_target>
-                           PRE_BUILD
-                           COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q 
-                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-                           COMMENT "Increase build number"
-
-        )
+add_custom_command(TARGET <your_target>
+                   PRE_BUILD
+                   COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q 
+                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+                   COMMENT "Increase build number"
+)
 ```
 ![Clang-Format check](https://github.com/Masfo/buildinc/actions/workflows/clang-format-check.yml/badge.svg)
