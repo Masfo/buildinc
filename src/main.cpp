@@ -121,11 +121,15 @@ std::string uuid_string() noexcept
 {
 	static std::random_device                      rd;
 	static std::uniform_int_distribution<uint64_t> dist(0);
-	uint64_t                                       ab = (dist(rd) & 0xFFFFFFFFFFFF0FFFULL) | 0x0000000000004000ULL;
-	uint64_t                                       cd = (dist(rd) & 0x3FFFFFFFFFFFFFFFULL) | 0x8000000000000000ULL;
+	uint64_t                                       ab = (dist(rd) & 0xFFFF'FFFF'FFFF'0FFFULL) | 0x0000'0000'0000'4000ULL;
+	uint64_t                                       cd = (dist(rd) & 0x3FFF'FFFF'FFFF'FFFFULL) | 0x8000'0000'0000'0000ULL;
 
-	return std::format("{:08X}-{:04X}-{:04X}-{:04X}-{:012X}", (ab >> 32) & 0xFFFF'FFFF, (ab >> 16) & 0xFFFF, (ab >> 00) & 0xFFFF,
-		(cd >> 48) & 0xFFFF, (cd >> 00) & 0xFFFF'FFFF'FFFF);
+	return std::format("{:08X}-{:04X}-{:04X}-{:04X}-{:012X}",
+					   (ab >> 32) & 0xFFFF'FFFF,
+					   (ab >> 16) & 0xFFFF,
+					   (ab >> 00) & 0xFFFF,
+					   (cd >> 48) & 0xFFFF,
+					   (cd >> 00) & 0xFFFF'FFFF'FFFF);
 }
 
 void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)

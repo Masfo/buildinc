@@ -1,4 +1,3 @@
----
 Language: Cpp
 Standard: Latest
 ColumnLimit: 140
@@ -9,12 +8,14 @@ ReferenceAlignment: Left
 UseTab: ForContinuationAndIndentation
 TabWidth: 4
 
+AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: Consecutive 
 AlignConsecutiveDeclarations: Consecutive  
 AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: No
 Cpp11BracedListStyle: true
 DerivePointerAlignment: true
+IndentPPDirectives: BeforeHash
 MaxEmptyLinesToKeep: 2
 SpaceBeforeCpp11BracedList: false
 NamespaceIndentation: All
@@ -22,10 +23,18 @@ SortIncludes: CaseSensitive
 SeparateDefinitionBlocks: Always
 SpaceAfterTemplateKeyword: false
 
-# clang-format 16
-#IntegerLiteralSeparator:
-#  Binary: 4
-#  Decimal: 3
-#  Hex: 0
-...
+IntegerLiteralSeparator:
+  Binary: 4
+  Hex: 4
 
+
+BinPackArguments: false
+BinPackParameters: true
+
+IncludeCategories:
+  - Regex: '^<windows.h>'
+    Priority: -200
+  - Regex: '^<'
+    Priority: -100
+  - Regex: '^"'
+    Priority: 0
