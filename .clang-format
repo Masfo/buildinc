@@ -24,13 +24,18 @@ SeparateDefinitionBlocks: Always
 SpaceAfterTemplateKeyword: false
 
 IntegerLiteralSeparator:
-    Binary: 4
-    Hex: 0
+  Binary: 4
+  Hex: 4
+
+
+BinPackArguments: false
+BinPackParameters: true
 
 IncludeCategories:
   - Regex: '^<windows.h>'
     Priority: -200
   - Regex: '^<'
     Priority: -100
+  # finally other "" includes go between system headers and our headers
   - Regex: '^"'
     Priority: 0
