@@ -8,7 +8,7 @@
             "currentDir": "${workspaceRoot}\\bin",
             "projectTarget": "",
             "name": "buildinc module test",
-            "args": [ "modtest.ixx module -q -m" ]
+            "args": [ "../src/modtest.ixx module -q -m" ]
         },
         {
             "type": "default",
@@ -16,7 +16,7 @@
             "currentDir": "${workspaceRoot}\\bin",
             "projectTarget": "",
             "name": "buildinc header test",
-            "args": [ "modtest.h module -q" ]
+            "args": [ "../src/modtest.h module -q" ]
         }
 
     ]
