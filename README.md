@@ -9,7 +9,9 @@ Generates C++ header file containing version and build numbers. Also included
   - random code phrase.
   - compile time
 
-Example output: https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
+Example output: 
+  - Header https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
+  - Module: https://github.com/Masfo/buildinc/blob/main/src/modtest.ixx
 
 
 Example: add custom command to your CMake script to update per build.
