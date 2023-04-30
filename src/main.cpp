@@ -140,50 +140,50 @@ void AppendCommon(std::string &generated, uint32_t major, uint32_t minor, uint32
 	auto date = GetDateString();
 
 
-	generated.append("\t\t // You can modify major and minor\n");
+	generated.append("\t // You can modify major and minor\n");
 
-	generated.append(std::format("\t\tconstexpr uint32_t major = {};\n", major));
-	generated.append(std::format("\t\tconstexpr uint32_t minor = {};\n", minor));
-	generated.append("\n\t\t // Do not modify these\n");
+	generated.append(std::format("\tconstexpr uint32_t major = {};\n", major));
+	generated.append(std::format("\tconstexpr uint32_t minor = {};\n", minor));
+	generated.append("\n\t // Do not modify these\n");
 
-	generated.append(std::format("\t\tconstexpr uint32_t build = {};\n", build));
-	generated.append("\t\t\n");
+	generated.append(std::format("\tconstexpr uint32_t build = {};\n", build));
+	generated.append("\t\n");
 
 	const auto [multi1, multi2] = Multiplier(build);
-	generated.append(std::format("\t\tconstexpr uint32_t version = major * {} + minor * {} + build;\n", multi2, multi1));
-	generated.append(std::format("\t\tconstexpr uint64_t random_seed = {:#0x};\n", dist(rd)));
-	generated.append("\t\t\n");
+	generated.append(std::format("\tconstexpr uint32_t version = major * {} + minor * {} + build;\n", multi2, multi1));
+	generated.append(std::format("\tconstexpr uint64_t random_seed = {:#0x};\n", dist(rd)));
+	generated.append("\t\n");
 
 	const auto generated_version = std::format("v{}.{}.{}", major, minor, build);
-	generated.append(std::format("\t\tconstexpr char version_string[] = \"{}\";\n", generated_version));
+	generated.append(std::format("\tconstexpr char version_string[] = \"{}\";\n", generated_version));
 
-	generated.append(std::format("\t\tconstexpr char build_time_string[] = \"{}\";\n", date));
+	generated.append(std::format("\tconstexpr char build_time_string[] = \"{}\";\n", date));
 	auto phrase = GenerateRandomPhrase();
-	generated.append(std::format("\t\tconstexpr char phrase[] = \"{}\";\n", phrase));
+	generated.append(std::format("\tconstexpr char phrase[] = \"{}\";\n", phrase));
 	// Cal-ver
-	generated.append(std::format("\t\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
+	generated.append(std::format("\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
 	// uuid
-	generated.append(std::format("\t\tconstexpr char uuid[] = \"{}\";\n", uuid_string()));
+	generated.append(std::format("\tconstexpr char uuid[] = \"{}\";\n", uuid_string()));
 
 
 	generated.append("\n");
 
-	generated.append("\t\t// Copy paste to import to your project\n");
-	generated.append("\t\t/*\n");
+	generated.append("\t// Copy paste to import to your project\n");
+	generated.append("\t/*\n");
 
-	generated.append(std::format("\t\t\tconstexpr auto major = {}major;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto minor = {}minor;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto build = {}build;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto version = {}version;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto random_seed = {}random_seed;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto major = {}major;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto minor = {}minor;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto build = {}build;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto version = {}version;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto random_seed = {}random_seed;\n", modns));
 	generated.append("\t\t\t\n");
 
-	generated.append(std::format("\t\t\tconstexpr auto version_string = {}version_string;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}build_time_string;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto phrase = {}phrase;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto calver = {}calver;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto uuid = {}uuid;\n", modns));
-	generated.append("\t\t*/\n");
+	generated.append(std::format("\t\tconstexpr auto version_string = {}version_string;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto build_time_string = {}build_time_string;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto phrase = {}phrase;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto calver = {}calver;\n", modns));
+	generated.append(std::format("\t\tconstexpr auto uuid = {}uuid;\n", modns));
+	generated.append("\t*/\n");
 }
 
 void WriteModule(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
