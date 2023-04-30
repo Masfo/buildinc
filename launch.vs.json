@@ -8,7 +8,7 @@
             "currentDir": "${workspaceRoot}\\bin",
             "projectTarget": "",
             "name": "buildinc [args]",
-            "args": [ "buildnumber.ixx BuildInc -q" ]
+            "args": [ "modtest.ixx module -q -m" ]
         }
 
     ]

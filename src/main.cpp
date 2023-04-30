@@ -132,14 +132,12 @@ std::string uuid_string() noexcept
 					   (cd >> 00) & 0xFFFF'FFFF'FFFF);
 }
 
-void AppendCommon(std::string &generated, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
+void AppendCommon(std::string &generated, uint32_t major, uint32_t minor, uint32_t build, const std::string modns)
 {
 	std::random_device                      rd;
 	std::uniform_int_distribution<uint64_t> dist;
 
 	auto date = GetDateString();
-
-	std::string modns = project_namespace + "Version";
 
 
 	generated.append("\t\t // You can modify major and minor\n");
@@ -173,18 +171,19 @@ void AppendCommon(std::string &generated, const std::string &project_namespace, 
 	generated.append("\t\t// Copy paste to import to your project\n");
 	generated.append("\t\t/*\n");
 
-	generated.append(std::format("\t\t\tconstexpr auto major = {}::major;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto minor = {}::minor;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto build = {}::build;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto version = {}::version;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto random_seed = {}::random_seed;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto major = {}major;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto minor = {}minor;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto build = {}build;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto version = {}version;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto random_seed = {}random_seed;\n", modns));
 	generated.append("\t\t\t\n");
 
-	generated.append(std::format("\t\t\tconstexpr auto version_string = {}::version_string;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}::build_time_string;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto phrase = {}::phrase;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto calver = {}::calver;\n", modns));
-	generated.append(std::format("\t\t\tconstexpr auto uuid = {}::uuid;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto version_string = {}version_string;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto build_time_string = {}build_time_string;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto phrase = {}phrase;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto calver = {}calver;\n", modns));
+	generated.append(std::format("\t\t\tconstexpr auto uuid = {}uuid;\n", modns));
+	generated.append("\t\t*/\n");
 }
 
 void WriteModule(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
@@ -198,10 +197,12 @@ void WriteModule(std::filesystem::path &HeaderFile, const std::string &project_n
 	generated.append("module;\n");
 	generated.append("#include <cstdint>\n\n");
 
-	generated.append(std::format("export module {}\n", modns));
+	generated.append(std::format("export module {};\n", modns));
+	generated.append(std::format("export namespace {}\n", modns));
 	generated.append("{\n");
 
-	AppendCommon(generated, project_namespace, major, minor, build);
+
+	AppendCommon(generated, major, minor, build, modns + "::");
 
 	generated.append("}\n");
 
@@ -222,7 +223,7 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
 	auto date = GetDateString();
 
-	std::string modns = project_namespace + "Version";
+	std::string modns = project_namespace + "Version" + "::";
 
 	std::string generated;
 	generated.reserve(1400);
@@ -241,10 +242,8 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 	generated.append(std::format("namespace {}\n", modns));
 	generated.append("{\n");
 
-	AppendCommon(generated, project_namespace, major, minor, build);
+	AppendCommon(generated, major, minor, build, modns);
 
-
-	generated.append("\t\t*/\n");
 
 	generated.append("}\n");
 
@@ -259,10 +258,10 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 	output.close();
 }
 
-void Write(bool header, std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor,
+void Write(bool module, std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor,
 		   uint32_t build)
 {
-	if (header)
+	if (!module)
 		WriteHeader(HeaderFile, project_namespace, major, minor, build);
 	else
 		WriteModule(HeaderFile, project_namespace, major, minor, build);
@@ -273,8 +272,9 @@ int main(int argc, char *argv[])
 
 	std::vector<std::string> commandline(argv + 1, argv + argc);
 
-	bool quiet        = !commandline.empty() ? commandline.back().contains("-q") : false;
-	bool write_module = true;
+	bool quiet        = !commandline.empty() ? std::ranges::find(commandline, "-q") != commandline.end() : false;
+	bool write_module = !commandline.empty() ? std::ranges::find(commandline, "-m") != commandline.end() : false;
+
 
 	if (!quiet)
 		std::cout << std::format("BuildInc {}\n\n", BuildIncVersion::version_string);
