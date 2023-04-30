@@ -282,7 +282,11 @@ int main(int argc, char *argv[])
 	if (commandline.size() < 2)
 	{
 		if (!quiet)
-			std::cout << "usage: buildinc <output file> <projectname>\n";
+		{
+			std::cout << "usage: buildinc <output file> <projectname> [-q][-m]\n";
+			std::cout << "\t-q  Quiet\n";
+			std::cout << "\t-m  Generate module version\n";
+		}
 
 		return 0;
 	}
