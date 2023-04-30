@@ -18,6 +18,7 @@ Example: add custom command to your CMake script to update per build.
 ```cpp
 find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
 
+// optional -m option for generating modules
 add_custom_command(TARGET <your_target>
                    PRE_BUILD
                    COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q 
