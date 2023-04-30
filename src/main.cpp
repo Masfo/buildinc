@@ -223,7 +223,7 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
 	auto date = GetDateString();
 
-	std::string modns = project_namespace + "Version" + "::";
+	std::string modns = project_namespace + "Version";
 
 	std::string generated;
 	generated.reserve(1400);
@@ -242,7 +242,7 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 	generated.append(std::format("namespace {}\n", modns));
 	generated.append("{\n");
 
-	AppendCommon(generated, major, minor, build, modns);
+	AppendCommon(generated, major, minor, build, modns + "::");
 
 
 	generated.append("}\n");

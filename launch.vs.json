@@ -7,8 +7,16 @@
             "project": "CMakeLists.txt",
             "currentDir": "${workspaceRoot}\\bin",
             "projectTarget": "",
-            "name": "buildinc [args]",
+            "name": "buildinc module test",
             "args": [ "modtest.ixx module -q -m" ]
+        },
+        {
+            "type": "default",
+            "project": "CMakeLists.txt",
+            "currentDir": "${workspaceRoot}\\bin",
+            "projectTarget": "",
+            "name": "buildinc header test",
+            "args": [ "modtest.h module -q" ]
         }
 
     ]
