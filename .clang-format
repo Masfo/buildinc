@@ -15,7 +15,7 @@ AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: No
 Cpp11BracedListStyle: true
 DerivePointerAlignment: true
-IndentPPDirectives: BeforeHash
+IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2
 SpaceBeforeCpp11BracedList: false
 NamespaceIndentation: All
