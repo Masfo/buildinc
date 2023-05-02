@@ -147,13 +147,18 @@ function(setup_piku_executable_msvc target outputname)
 
     find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
     if(BUILDINC_TOOL)
-    add_custom_command(TARGET ${target}
+        # Build header version
+        add_custom_command(TARGET ${target}
+                           PRE_BUILD
+                           COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q
+                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+                           COMMENT "Increase build number (header)")
+    # Build module version
+        add_custom_command(TARGET ${target}
                        PRE_BUILD
-                       COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q
+                       COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.ixx BuildInc -q -m
                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-                       COMMENT "Increase build number"
-
-    )
+                       COMMENT "Increase build number (module)")
     endif()
 
 endfunction()

@@ -11,17 +11,29 @@ Generates C++ header file containing version and build numbers. Also included
 
 Example output: 
   - Header https://github.com/Masfo/buildinc/blob/main/src/buildnumber.h
-  - Module: https://github.com/Masfo/buildinc/blob/main/src/modtest.ixx
+  - Module: https://github.com/Masfo/buildinc/blob/main/src/buildnumber.ixx
 
 
 Example: add custom command to your CMake script to update per build.
 ```cpp
 find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
 
-// optional -m option for generating modules
+// Header
 add_custom_command(TARGET <your_target>
                    PRE_BUILD
                    COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.h BuildInc -q 
+                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+                   COMMENT "Increase build number"
+)
+```
+
+```cpp
+find_program(BUILDINC_TOOL "buildinc" NO_CACHE)
+
+// Module
+add_custom_command(TARGET <your_target>
+                   PRE_BUILD
+                   COMMAND ${BUILDINC_TOOL} ${CMAKE_CURRENT_SOURCE_DIR}/src/buildnumber.ixx BuildInc -q -m
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
                    COMMENT "Increase build number"
 )
