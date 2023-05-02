@@ -189,7 +189,7 @@ void AppendCommon(std::string &generated, uint32_t major, uint32_t minor, uint32
 void WriteModule(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
 {
 
-	std::string modns = project_namespace + "Version";
+	std::string modns = project_namespace;
 
 	std::string generated;
 	generated.reserve(1400);
@@ -223,7 +223,7 @@ void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_n
 
 	auto date = GetDateString();
 
-	std::string modns = project_namespace + "Version";
+	std::string modns = project_namespace;
 
 	std::string generated;
 	generated.reserve(1400);
