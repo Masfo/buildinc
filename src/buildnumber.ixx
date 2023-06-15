@@ -9,16 +9,16 @@ export namespace BuildInc
 	constexpr uint32_t minor = 2;
 
 	 // Do not modify these
-	constexpr uint32_t build = 307;
+	constexpr uint32_t build = 309;
 	
 	constexpr uint32_t version = major * 10000 + minor * 1000 + build;
-	constexpr uint64_t random_seed = 0xde699f7af603c0f8;
+	constexpr uint64_t random_seed = 0xdbaf9394f6eb01f3;
 	
-	constexpr char version_string[] = "v0.2.307";
-	constexpr char build_time_string[] = "2023-06-15 13:51:54";
-	constexpr char phrase[] = "luster-vaguely-unknown";
-	constexpr char calver[] = "2023.24.307";
-	constexpr char uuid[] = "C1B2DF46-8BC9-40CA-9383-C4416FC1B945";
+	constexpr char version_string[] = "v0.2.309";
+	constexpr char build_time_string[] = "2023-06-15 15:31:24";
+	constexpr char phrase[] = "disjoin-bullion-create";
+	constexpr char calver[] = "2023.24.309";
+	constexpr char uuid[] = "84FC179B-25ED-4454-9B4B-A97FAC5C54A3";
 
 	// Copy paste to import to your project
 	/*
