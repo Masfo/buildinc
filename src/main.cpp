@@ -52,13 +52,18 @@ std::string GenerateRandomPhrase() noexcept
 	}
 
 	std::random_device                    rd;
-	std::uniform_int_distribution<size_t> dist(0ull, eff_wordlist_size);
+	std::uniform_int_distribution<size_t> dist(0ull, eff_wordlist_size - 1);
 
-	auto &phrase1 = global::eff_wordlist[dist(rd)];
-	auto &phrase2 = global::eff_wordlist[dist(rd)];
-	auto &phrase3 = global::eff_wordlist[dist(rd)];
+	std::vector<std::string> three_words{global::eff_wordlist[dist(rd)], global::eff_wordlist[dist(rd)], global::eff_wordlist[dist(rd)]};
+	while (not std::ranges::unique(three_words).size() == 0)
+	{
+		three_words[0] = global::eff_wordlist[dist(rd)];
+		three_words[1] = global::eff_wordlist[dist(rd)];
+		three_words[2] = global::eff_wordlist[dist(rd)];
+	}
 
-	return std::format("{}-{}-{}", phrase1, phrase2, phrase3);
+
+	return std::format("{}-{}-{}", three_words[0], three_words[1], three_words[2]);
 }
 
 bool find_variable(std::string_view variable, std::string_view to_find) { return variable.find(to_find) != std::string::npos; }
@@ -218,12 +223,11 @@ void WriteModule(std::filesystem::path &HeaderFile, const std::string &project_n
 
 void WriteHeader(std::filesystem::path &HeaderFile, const std::string &project_namespace, uint32_t major, uint32_t minor, uint32_t build)
 {
-	std::random_device                      rd;
 	std::uniform_int_distribution<uint64_t> dist;
 
 	auto date = GetDateString();
 
-	std::string modns = project_namespace;
+	const std::string &modns = project_namespace;
 
 	std::string generated;
 	generated.reserve(1400);
