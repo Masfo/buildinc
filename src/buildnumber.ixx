@@ -9,16 +9,16 @@ export namespace BuildInc
 	constexpr uint32_t minor = 2;
 
 	 // Do not modify these
-	constexpr uint32_t build = 319;
+	constexpr uint32_t build = 350;
 	
 	constexpr uint32_t version = major * 10000 + minor * 1000 + build;
-	constexpr uint64_t random_seed = 0x802eafff38e128de;
+	constexpr uint64_t random_seed = 0x2dede943dd837355;
 	
-	constexpr char version_string[] = "v0.2.319";
-	constexpr char build_time_string[] = "2023-09-26 17:52:56";
-	constexpr char phrase[] = "veteran-punk-cottage";
-	constexpr char calver[] = "2023.39.319";
-	constexpr char uuid[] = "FAB10069-2746-4C28-89B8-BB8E5F50F18F";
+	constexpr char version_string[] = "v0.2.350";
+	constexpr char build_time_string[] = "2024-04-30 21:19:56";
+	constexpr char phrase[] = "voting-liable-gigolo";
+	constexpr char calver[] = "2024.18.350";
+	constexpr char uuid[] = "39D0713C-2E49-4ECB-A82B-7C738D327D9E";
 
 	// Copy paste to import to your project
 	/*

@@ -70,6 +70,18 @@ bool find_variable(std::string_view variable, std::string_view to_find) { return
 
 size_t variable_pos(std::string_view variable, std::string_view to_find) { return variable.find(to_find); }
 
+std::string strip(std::string_view str, std::string_view strip_chars) noexcept
+{
+	std::string ret;
+	ret.reserve(str.size());
+
+	for (auto &c : str)
+		if (!strip_chars.contains(c))
+			ret += c;
+
+	return ret;
+}
+
 std::optional<unsigned int> get_variable(std::string_view from, std::string_view what) noexcept
 {
 	if (find_variable(from, what))
@@ -78,7 +90,10 @@ std::optional<unsigned int> get_variable(std::string_view from, std::string_view
 		size_t end   = from.find(';');
 
 		const std::string_view number = from.substr(found + 1, (end - found) - 1);
-		return {(uint32_t)std::stoi(number.data())};
+
+		std::string stripped = strip(number, "' ");
+
+		return {(uint32_t)std::stoi(stripped.data())};
 	}
 
 	return std::nullopt;

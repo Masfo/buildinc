@@ -10,6 +10,7 @@ function(setup_piku_executable_msvc target outputname)
     set_property(TARGET "${target}" PROPERTY CXX_STANDARD_REQUIRED ON)
     set_property(TARGET "${target}" PROPERTY CXX_EXTENSIONS        OFF)
 
+
     set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/bin)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -27,6 +28,7 @@ function(setup_piku_executable_msvc target outputname)
 
 
     set_property(TARGET "${target}" PROPERTY VS_STARTUP_PROJECT  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
 
     set_target_properties("${target}" PROPERTIES 
                           RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin
@@ -57,7 +59,7 @@ function(setup_piku_executable_msvc target outputname)
         target_compile_options("${target}" PRIVATE /permissive-)
         target_compile_options("${target}" PRIVATE /std:c++latest)
 
-        target_compile_options("${target}" PRIVATE /Wall)
+        target_compile_options("${target}" PRIVATE /W4)
         # target_compile_options("${target}" PRIVATE /WX) # Warnings as errors
 
 

@@ -10,7 +10,7 @@ export namespace moduleVersion
 	constexpr uint32_t minor = 0;
 
 	// Do not modify these
-	constexpr uint32_t build = 1;
+	constexpr uint32_t build = 1'2000;
 
 	constexpr uint32_t version     = major * 100 + minor * 10 + build;
 	constexpr uint64_t random_seed = 0xdd57'3015'6a2c'4050;
@@ -35,4 +35,4 @@ export namespace moduleVersion
 		constexpr auto calver = moduleVersion::calver;
 		constexpr auto uuid = moduleVersion::uuid;
 	*/
-}
+} // namespace moduleVersion
