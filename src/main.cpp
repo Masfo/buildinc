@@ -384,7 +384,7 @@ int main(int argc, char *argv[])
 		}
 
 
-		if (auto temp = get_variable(line, "build = "); temp)
+		if (auto temp = get_variable(line, "patch = "); temp)
 		{
 			count++;
 			build = *temp + 1;
