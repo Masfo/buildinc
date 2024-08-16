@@ -54,6 +54,7 @@ std::string GenerateRandomPhrase() noexcept
 	std::random_device                    rd;
 	std::uniform_int_distribution<size_t> dist(0ull, eff_wordlist_size - 1);
 
+
 	std::vector<std::string> three_words{global::eff_wordlist[dist(rd)], global::eff_wordlist[dist(rd)], global::eff_wordlist[dist(rd)]};
 	while (not std::ranges::unique(three_words).size() == 0)
 	{
@@ -156,6 +157,8 @@ void AppendCommon(std::string &generated, uint32_t major, uint32_t minor, uint32
 {
 	std::random_device                      rd;
 	std::uniform_int_distribution<uint64_t> dist;
+	std::uniform_int_distribution<int>      uchar_dist(0x00, 0xff);
+
 
 	auto date = GetDateString();
 
@@ -184,6 +187,13 @@ void AppendCommon(std::string &generated, uint32_t major, uint32_t minor, uint32
 	generated.append(std::format("\tconstexpr char calver[] = \"{}\";\n", cal_version_string(build)));
 	// uuid
 	generated.append(std::format("\tconstexpr char uuid[] = \"{}\";\n", uuid_string()));
+	// random 256 buffer
+	generated.append(std::format("\tconstexpr unsigned char rng_buffer[256] = {{"));
+	for (int i = 0; i < 256; i++)
+	{
+		generated.append(std::format("0x{:X}{}", uchar_dist(rd) % 0xFF, i < 255 ? "," : ""));
+	}
+	generated.append(std::format("}};"));
 
 
 	generated.append("\n");
